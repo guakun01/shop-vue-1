@@ -1,5 +1,6 @@
 .DS_Store
 /dist
+/resource
 
 # local env files
 .env.local
