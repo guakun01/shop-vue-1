@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 let app = Vue.extend(App);
 
 let router = new VueRouter({
-  linkActiveClass: 'active'
+  linkActiveClass: 'active',
 });
 
 router.start(app, '#app');
