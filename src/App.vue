@@ -9,3 +9,11 @@ export default {
   name: 'gua'
 };
 </script>
+
+<style lang="scss" scoped>
+  #gua {
+    p {
+      border: 1px solid red;
+    }
+  }
+</style>
