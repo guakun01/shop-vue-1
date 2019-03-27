@@ -19,6 +19,8 @@
 <script>
 import GHeader from 'components/header/header';
 
+const ERR_OK = 0;
+
 export default {
   name: 'GApp',
   components: {
@@ -28,6 +30,15 @@ export default {
     return {
       seller: {}
     };
+  },
+  created() {
+    this.$http.get('/api/seller')
+      .then(response => {
+        response = response.data;
+        if (response.errno === ERR_OK) {
+          this.seller = response.data;
+        }
+      });
   },
 };
 </script>
