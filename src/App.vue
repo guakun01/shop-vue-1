@@ -1,6 +1,6 @@
 <template>
   <div class="g-app">
-    <g-header></g-header>
+    <g-header :seller="seller"></g-header>
     <div class="tab border-1px">
       <div class="tab-item">
         <a v-link="{path: '/goods'}">商品</a>
