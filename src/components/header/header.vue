@@ -53,9 +53,17 @@ export default {
         margin: 2px 0 8px 0;
         .brand {
           display: inline-block;
+          vertical-align: top;
           width: 30px;
           height: 18px;
           @include bg-image('brand');
+          background-size: 30px 18px;
+          background-repeat: no-repeat;
+        }
+        .name {
+          margin-left: 6px;
+          font-size: 16px;
+          font-weight: bold;
         }
       }
     }

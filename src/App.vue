@@ -47,7 +47,6 @@ export default {
   @import "./common/scss/mixin";
 
   .g-app {
-    font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
     .tab {
       display: flex;
       height: 40px;
