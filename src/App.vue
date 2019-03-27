@@ -23,7 +23,12 @@ export default {
   name: 'GApp',
   components: {
     GHeader,
-  }
+  },
+  data() {
+    return {
+      seller: {}
+    };
+  },
 };
 </script>
 
