@@ -1,12 +1,23 @@
 <template>
   <div class="g-app">
-    <p>gua</p>
+    <g-header></g-header>
+    <div class="tab">
+      m tab
+    </div>
+    <div class="content">
+      m content
+    </div>
   </div>
 </template>
 
 <script>
+import GHeader from 'components/header/header';
+
 export default {
-  name: 'gua'
+  name: 'GApp',
+  components: {
+    GHeader,
+  }
 };
 </script>
 
