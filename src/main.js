@@ -5,6 +5,8 @@ import goods from 'components/goods/goods';
 import seller from 'components/seller/seller';
 import ratings from 'components/ratings/ratings';
 
+import 'common/scss/index.scss';
+
 Vue.use(VueRouter);
 
 let app = Vue.extend(App);
