@@ -17,17 +17,20 @@
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
-      <div v-if="seller.supports" class="support-count">
+      <div v-if="seller.supports" @click="showDetails" class="support-count">
         <span class="count">{{seller.supports.length}}个</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
-    <div class="bulletin-wrapper">
+    <div class="bulletin-wrapper" @click="showDetails">
       <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
     <div class="mask">
       <img :src="seller.avatar" alt="头像蒙层" width="100%" height="100%">
+    </div>
+    <div v-show="detailsVisible" class="popup-details">
+
     </div>
   </div>
 </template>
@@ -48,8 +51,14 @@ export default {
         'special',
         'invoice',
         'guarantee',
-      ]
+      ],
+      detailsVisible: false,
     };
+  },
+  methods: {
+    showDetails() {
+      this.detailsVisible = true;
+    }
   },
 };
 </script>
@@ -189,6 +198,16 @@ export default {
     height: 100%;
     z-index: -1;
     filter: blur(10px);
+  }
+  .popup-details {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(7, 17, 27, 0.8);
   }
 }
 </style>
