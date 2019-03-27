@@ -22,7 +22,13 @@
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
-    <div class="bulletin-wrapper"></div>
+    <div class="bulletin-wrapper">
+      <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
+      <i class="icon-keyboard_arrow_right"></i>
+    </div>
+    <div class="mask">
+      <img :src="seller.avatar" alt="头像蒙层" width="100%" height="100%">
+    </div>
   </div>
 </template>
 
@@ -52,8 +58,9 @@ export default {
 @import "../../common/scss/mixin";
 
 .header {
+  position: relative;
   color: #fff;
-  background-color: #999;
+  background: rgba(7, 17, 27, .5);
   .content-wrapper {
     padding: 24px 12px 18px 24px;
     font-size: 0;
@@ -141,6 +148,46 @@ export default {
         font-size: 10px;
       }
     }
+  }
+  .bulletin-wrapper {
+    position: relative;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 22px 0 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: rgba(7, 17, 27, .2);
+    .bulletin-title {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 7px;
+      width: 22px;
+      height: 12px;
+      @include bg-image('bulletin');
+      background-size: 22px 12px;
+      background-repeat: no-repeat;
+    }
+    .bulletin-text {
+      vertical-align: top;
+      margin: 0 4px;
+      font-size: 10px;
+    }
+    .icon-keyboard_arrow_right {
+      position: absolute;
+      font-size: 10px;
+      right: 12px;
+      top: 8px;
+    }
+  }
+  .mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(10px);
   }
 }
 </style>
