@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll';
+
 const ERR_OK = 0;
 
 export default {
