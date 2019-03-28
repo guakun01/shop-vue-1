@@ -118,7 +118,9 @@ export default {
   },
   methods: {
     _drop(target) {
-      this.$refs.shopcart.drop(target);
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target);
+      });
     },
     selectMenu(index, event) {
       if (!event._constructed) {
