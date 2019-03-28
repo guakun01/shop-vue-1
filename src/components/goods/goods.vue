@@ -28,6 +28,9 @@
                 <div class="price">
                   <span class="now">¥{{food.price}}</span><span v-show="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cart-control :food="food"></cart-control>
+                </div>
               </div>
             </li>
           </ul>
@@ -41,6 +44,7 @@
 <script>
 import BScroll from 'better-scroll';
 import ShopCart from '../shopcart/shopcart';
+import CartControl from '../cartcontrol/cartcontrol';
 
 const ERR_OK = 0;
 
@@ -48,6 +52,7 @@ export default {
   name: 'GGoodsPage',
   components: {
     ShopCart,
+    CartControl,
   },
   props: {
     seller: {
@@ -119,6 +124,7 @@ export default {
       });
       this.foodsScroll = new BScroll(this.$els.foodsWrapper, {
         probeType: 3,
+        click: true,
       });
       // 监听滚动事件
       this.foodsScroll.on('scroll', (pos) => {
@@ -253,6 +259,11 @@ export default {
               font-size: 10px;
               color: rgb(147, 153, 159);
             }
+          }
+          .cartcontrol-wrapper {
+            position: absolute;
+            right: 0;
+            bottom: 12px;
           }
         }
       }
