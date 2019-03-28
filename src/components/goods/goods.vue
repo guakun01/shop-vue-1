@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" v-el:menu-wrapper>
       <ul>
         <li v-for="good in goods" class="menu-item">
           <span class="text border-1px">
@@ -10,7 +10,7 @@
         </li>
       </ul>
     </div>
-    <div class="goods-wrapper">
+    <div class="goods-wrapper" v-el:foods-wrapper>
       <ul>
         <li v-for="good in goods" class="food-list-item">
           <h1 class="title">{{good.name}}</h1>
@@ -23,12 +23,10 @@
                 <h2 class="name">{{food.name}}</h2>
                 <p class="desc">{{food.description}}</p>
                 <div class="extra">
-                  <span class="count">月售 {{food.sellCount}} 份</span>
-                  <span>好评率 {{food.rating}} %</span>
+                  <span class="count">月售 {{food.sellCount}} 份</span><span>好评率 {{food.rating}} %</span>
                 </div>
                 <div class="price">
-                  <span class="now">¥{{food.price}}</span>
-                  <span v-show="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
+                  <span class="now">¥{{food.price}}</span><span v-show="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
                 </div>
               </div>
             </li>
@@ -61,6 +59,7 @@ export default {
         'invoice',
         'guarantee',
       ],
+      menuScroll: null,
     };
   },
   created() {
@@ -69,9 +68,18 @@ export default {
         response = response.data;
         if (response.errno === ERR_OK) {
           this.goods = response.data;
+          this.$nextTick(() => {
+            this._initScroll();
+          });
         }
       });
   },
+  methods: {
+    _initScroll() {
+      this.menuScroll = new BScroll(this.$els.menuWrapper, {});
+      this.menuScroll = new BScroll(this.$els.foodsWrapper, {});
+    }
+  }
 };
 </script>
 
@@ -168,6 +176,7 @@ export default {
             color: rgb(147, 153, 159);
           }
           .desc {
+            line-height: 12px;
             margin-bottom: 8px;
           }
           .extra {
