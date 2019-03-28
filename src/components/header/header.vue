@@ -30,14 +30,27 @@
       <img :src="seller.avatar" alt="头像蒙层" width="100%" height="100%">
     </div>
     <div v-show="detailsVisible" class="popup-details">
-
+      <div class="details-wrapper clearfix">
+        <div class="details-main">
+          <h1 class="name">{{seller.name}}</h1>
+          <div class="star-wrapper">
+            <g-star :size="48" :score="seller.score"></g-star>
+          </div>
+        </div>
+      </div>
+      <div class="details-close">
+        <i class="icon-close"></i>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import GStar from '../star/star';
+
 export default {
   name: 'GAppHeader',
+  components: {GStar},
   props: {
     seller: {
       type: Object,
@@ -52,7 +65,7 @@ export default {
         'invoice',
         'guarantee',
       ],
-      detailsVisible: false,
+      detailsVisible: true,
     };
   },
   methods: {
@@ -208,6 +221,34 @@ export default {
     height: 100%;
     overflow: auto;
     background: rgba(7, 17, 27, 0.8);
+    .details-wrapper {
+      display: inline-block;
+      min-height: 100%;
+      width: 100%;
+      .details-main {
+        margin-top: 64px;
+        padding-bottom: 64px;
+        .name {
+          line-height: 16px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 700;
+        }
+        .star-wrapper {
+          margin-top: 18px;
+          padding: 2px 0;
+          text-align: center;
+        }
+      }
+    }
+    .details-close {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      margin: -64px auto 0 auto;
+      clear: both;
+      font-size: 32px;
+    }
   }
 }
 </style>
