@@ -94,7 +94,9 @@ export default {
       if (!event._constructed) {
         return;
       }
-      console.log(index);
+      let foodList = this.$els.foodsWrapper.querySelectorAll('.food-list-hook');
+      let el = foodList[index];
+      this.foodsScroll.scrollToElement(el, 100);
     },
     _calculateHeight() {
       let foodList = this.$els.foodsWrapper.querySelectorAll('.food-list-hook');
