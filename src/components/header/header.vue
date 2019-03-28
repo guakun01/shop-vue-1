@@ -29,16 +29,35 @@
     <div class="mask">
       <img :src="seller.avatar" alt="头像蒙层" width="100%" height="100%">
     </div>
-    <div v-show="detailsVisible" class="popup-details">
+    <div v-show="detailsVisible" transition="fade" class="popup-details">
       <div class="details-wrapper clearfix">
         <div class="details-main">
           <h1 class="name">{{seller.name}}</h1>
           <div class="star-wrapper">
             <g-star :size="48" :score="seller.score"></g-star>
           </div>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">优惠信息</div>
+            <div class="line"></div>
+          </div>
+          <ul v-if="seller.supports" class="supports">
+            <li v-for="item in seller.supports" class="support-item">
+              <span class="icon" :class="classMap[item.type]"></span>
+              <span class="text">{{item.description}}</span>
+            </li>
+          </ul>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">商家公告</div>
+            <div class="line"></div>
+          </div>
+          <div class="bulletin">
+            <p class="content">{{seller.bulletin}}</p>
+          </div>
         </div>
       </div>
-      <div class="details-close">
+      <div class="details-close" @click="hideDetails">
         <i class="icon-close"></i>
       </div>
     </div>
@@ -65,13 +84,16 @@ export default {
         'invoice',
         'guarantee',
       ],
-      detailsVisible: true,
+      detailsVisible: false,
     };
   },
   methods: {
     showDetails() {
       this.detailsVisible = true;
-    }
+    },
+    hideDetails() {
+      this.detailsVisible = false;
+    },
   },
 };
 </script>
@@ -220,7 +242,16 @@ export default {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background: rgba(7, 17, 27, 0.8);
+    transition: all .3s;
+    backdrop-filter: blur(10);
+    &.fade-transition {
+      opacity: 1;
+      background: rgba(7, 17, 27, 0.8);
+    }
+    &.fade-enter, &.fade-leave {
+      opacity: 0;
+      background: rgba(7, 17, 27, 0);
+    }
     .details-wrapper {
       display: inline-block;
       min-height: 100%;
@@ -238,6 +269,71 @@ export default {
           margin-top: 18px;
           padding: 2px 0;
           text-align: center;
+        }
+        .title {
+          display: flex;
+          width: 80%;
+          margin: 28px auto 24px auto;
+          .line {
+            flex: 1;
+            position: relative;
+            top: -6px;
+            border-bottom: 1px solid rgba(255, 255, 255, .2);
+          }
+          .text {
+            padding: 0 12px;
+            font-weight: 700;
+            font-size: 14px;
+          }
+        }
+        .supports {
+          width: 80%;
+          margin: 0 auto;
+          .support-item {
+            padding: 0 12px;
+            margin-bottom: 12px;
+            font-size: 0;
+            &:last-child {
+              margin-bottom: 0;
+            }
+            .icon {
+              display: inline-block;
+              width: 16px;
+              height: 16px;
+              vertical-align: top;
+              margin-right: 6px;
+              background-size: 16px 16px;
+              background-repeat: no-repeat;
+              &.decrease {
+                @include bg-image('decrease_2');
+              }
+              &.discount {
+                @include bg-image('discount_2');
+              }
+              &.guarantee {
+                @include bg-image('guarantee_2');
+              }
+              &.invoice {
+                @include bg-image('invoice_2');
+              }
+              &.special {
+                @include bg-image('special_2');
+              }
+            }
+            .text {
+              line-height: 16px;
+              font-size: 12px;
+            }
+          }
+        }
+        .bulletin {
+          width: 80%;
+          margin: 0 auto;
+          .content {
+            padding: 0 12px;
+            line-height: 24px;
+            font-size: 12px;
+          }
         }
       }
     }
