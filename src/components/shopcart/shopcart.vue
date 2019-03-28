@@ -1,6 +1,6 @@
 <template>
   <div class="shopcart">
-    <div class="content">
+    <div @click="toggleListVisible" class="content">
       <div class="content-left">
         <div class="logo-wrapper">
           <div :class="{'highlight':totalCount>0}" class="logo">
@@ -23,11 +23,34 @@
         <div class="inner inner-hook"></div>
       </div>
     </div>
+    <div v-show="listVisible" class="shopcart-list">
+      <div class="list-header">
+        <h1 class="title">购物车</h1>
+        <span class="empty">清空</span>
+      </div>
+      <div class="list-content">
+        <ul>
+          <li v-for="food in selectFoods" class="food">
+            <span class="name">{{food.name}}</span>
+            <div class="price">
+              <span>{{food.price * food.count}}</span>
+            </div>
+            <div class="cartcontrol-wrapper">
+              <cart-control :food="food"></cart-control>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import CartControl from '../cartcontrol/cartcontrol';
 export default {
+  components: {
+    CartControl,
+  },
   props: {
     selectFoods: {
       type: Array,
@@ -57,9 +80,18 @@ export default {
         { show: false, },
       ],
       dropBalls: [],
+      fold: true,
     };
   },
   computed: {
+    listVisible() {
+      if (!this.totalCount) {
+        this.fold = true;
+        return false;
+      }
+      let show = !this.fold;
+      return show;
+    },
     totalPrice() {
       let total = 0;
       this.selectFoods.forEach(food => {
@@ -95,6 +127,12 @@ export default {
     },
   },
   methods: {
+    toggleListVisible() {
+      if (!this.totalCount) {
+        return;
+      }
+      this.fold = !this.fold;
+    },
     drop(el) {
       let {balls} = this;
       for (let i = 0; i < balls.length; i++) {
