@@ -34,16 +34,21 @@
         </li>
       </ul>
     </div>
+    <shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll';
+import ShopCart from '../shopcart/shopcart';
 
 const ERR_OK = 0;
 
 export default {
   name: 'GGoodsPage',
+  components: {
+    ShopCart,
+  },
   props: {
     seller: {
       type: Object
