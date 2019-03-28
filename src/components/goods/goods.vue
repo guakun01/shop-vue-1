@@ -38,7 +38,7 @@
       </ul>
     </div>
     <shop-cart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
-      :min-price="seller.minPrice"></shop-cart>
+      :min-price="seller.minPrice" v-ref:shopcart></shop-cart>
   </div>
 </template>
 
@@ -111,7 +111,15 @@ export default {
         }
       });
   },
+  events: {
+    'cart.add'(target) {
+      this._drop(target);
+    },
+  },
   methods: {
+    _drop(target) {
+      this.$refs.shopcart.drop(target);
+    },
     selectMenu(index, event) {
       if (!event._constructed) {
         return;
