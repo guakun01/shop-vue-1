@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import {urlParse} from 'common/js/util';
 import GHeader from 'components/header/header';
 
 const ERR_OK = 0;
@@ -28,15 +29,21 @@ export default {
   },
   data() {
     return {
-      seller: {}
+      seller: {
+        id: (() => {
+          let queryParam = urlParse();
+          return queryParam.id;
+        })(),
+      }
     };
   },
   created() {
-    this.$http.get('/api/seller')
+    this.$http.get('/api/seller?id=' + this.seller.id)
       .then(response => {
         response = response.data;
         if (response.errno === ERR_OK) {
-          this.seller = response.data;
+          // this.seller = response.data;
+          this.seller = Object.assign({}, this.seller, response.data);
         }
       });
   },
