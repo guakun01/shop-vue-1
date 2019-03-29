@@ -28,6 +28,10 @@
             </div>
           </li>
         </ul>
+        <div @click="toggleFavorite" class="favorite">
+          <span :class="{'active': favorite}" class="icon-favorite"></span>
+          <span class="text">{{favoriteText}}</span>
+        </div>
       </div>
       <split></split>
       <div class="bulletin">
@@ -92,7 +96,13 @@ export default {
       ],
       scroll: null,
       picScroll: null,
+      favorite: false,
     };
+  },
+  computed: {
+    favoriteText() {
+      return this.favorite ? '已收藏' : '收藏';
+    },
   },
   watch: {
     'seller'() {
@@ -105,6 +115,12 @@ export default {
     this._initPicScroll();
   },
   methods: {
+    toggleFavorite(event) {
+      if (!event._constructed) {
+        return;
+      }
+      this.favorite = !this.favorite;
+    },
     _initPicScroll() {
       if (this.seller.pics) {
         let picWidth = 120;
@@ -147,6 +163,7 @@ export default {
   overflow: hidden;
   .seller-content {
     .overview {
+      position: relative;
       padding: 18px;
       .title {
         margin-bottom: 8px;
@@ -195,6 +212,28 @@ export default {
           .stress {
             font-size: 24px;
           }
+        }
+      }
+      .favorite {
+        position: absolute;
+        width: 50px;
+        right: 7px;
+        top: 18px;
+        text-align: center;
+        .icon-favorite {
+          display: block;
+          margin-bottom: 4px;
+          color: #d4d6d9;
+          line-height: 24px;
+          font-size: 24px;
+          &.active {
+            color: rgb(240, 20, 20);
+          }
+        }
+        .text {
+          line-height: 10px;
+          font-size: 10px;
+          color: rgb(77, 85, 93);
         }
       }
     }
