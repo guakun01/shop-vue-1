@@ -29,6 +29,12 @@
         <h1 class="title">商品信息</h1>
         <p class="text">{{food.info}}</p>
       </div>
+      <split></split>
+      <div class="rating">
+        <h1 class="title">商品评价</h1>
+      </div>
+      <rating-select :select-type="selectType" :only-content="onlyContent" 
+        :ratings="food.ratings" :desc="desc"></rating-select>
     </div>
   </div>
 </template>
@@ -38,12 +44,18 @@ import Vue from 'vue';
 import BScroll from 'better-scroll';
 import CartControl from '../cartcontrol/cartcontrol';
 import Split from '../split/split';
+import RatingSelect from '../ratingselect/ratingselect';
+
+// const POSITIVE = 0;
+// const NEGATIVE = 1;
+const ALL = 2;
 
 export default {
   name: 'GFood',
   components: {
     CartControl,
     Split,
+    RatingSelect,
   },
   props: {
     food: {
@@ -54,6 +66,13 @@ export default {
     return {
       visible: false,
       scroll: null,
+      selectType: ALL,
+      onlyContent: true,
+      desc: {
+        all: '全部',
+        positive: '推荐',
+        negative: '吐槽',
+      }
     };
   },
   methods: {
@@ -65,7 +84,14 @@ export default {
       this.$dispatch('cart.add', event.target);
     },
     show() {
+      this.selectType = ALL;
+      this.onlyContent = true;
       this.visible = true;
+      this.desc = {
+        all: '全部',
+        positive: '推荐',
+        negative: '吐槽',
+      };
       this.$nextTick(() => {
         if (!this.scroll) {
           this.scroll = new BScroll(this.$els.food, {
