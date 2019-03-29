@@ -70,15 +70,16 @@ export default {
       if (!event._constructed) {
         return;
       }
-      this.selectType = type;
+      // this.selectType = type;
       this.$dispatch('ratingType.select', type);
     },
     toggleContent(event) {
       if (!event._constructed) {
         return;
       }
-      this.onlyContent = !this.onlyContent;
-      this.$dispatch('content.toggle', this.onlyContent);
+      // this.onlyContent = !this.onlyContent;
+      // this.$dispatch('content.toggle', this.onlyContent);
+      this.$dispatch('content.toggle', !this.onlyContent);
     }
   },
 };
