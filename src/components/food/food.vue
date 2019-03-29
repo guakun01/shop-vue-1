@@ -42,13 +42,13 @@
               <span class="name">{{rating.username}}</span>
               <img :src="rating.avatar" width="12" height="12" alt="" class="avatar">
             </div>
-            <div class="time">{{rating.rateTime}}</div>
+            <div class="time">{{rating.rateTime | formatDate}}</div>
             <p class="text">
               <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}" class="icon"></span>{{rating.text}}
             </p>
           </li>
         </ul>
-        <div v-else class="no-rating"></div>
+        <div v-else class="no-rating">暂无评价</div>
       </div>
     </div>
   </div>
@@ -57,6 +57,7 @@
 <script>
 import Vue from 'vue';
 import BScroll from 'better-scroll';
+import {formatDate} from 'common/js/date';
 import CartControl from '../cartcontrol/cartcontrol';
 import Split from '../split/split';
 import RatingSelect from '../ratingselect/ratingselect';
@@ -93,10 +94,22 @@ export default {
   events: {
     'ratingType.select'(type) {
       this.selectType = type;
+      this.$nextTick(() => {
+        this.scroll.refresh();
+      });
     },
     'content.toggle'(onlyContent) {
       this.onlyContent = onlyContent;
+      this.$nextTick(() => {
+        this.scroll.refresh();
+      });
     }
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, 'yyyy-MM-dd hh:mm');
+    },
   },
   methods: {
     rateVisible(type, text) {
@@ -316,6 +329,11 @@ export default {
           color: rgb(147, 153, 159); // right
         }
       }
+    }
+    .no-rating {
+      padding: 16px 0;
+      font-size: 12px;
+      color: rgb(147, 153, 159);
     }
   }
 }
