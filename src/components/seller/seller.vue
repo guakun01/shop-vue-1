@@ -70,6 +70,7 @@
 
 <script>
 import BScroll from 'better-scroll';
+import {saveToLocal, loadFromLocal} from 'common/js/store';
 import GStar from '../star/star';
 import Split from '../split/split';
 
@@ -96,7 +97,9 @@ export default {
       ],
       scroll: null,
       picScroll: null,
-      favorite: false,
+      favorite: (() => {
+        return loadFromLocal(this.seller.id, 'favorite', false);
+      })(),
     };
   },
   computed: {
@@ -120,6 +123,7 @@ export default {
         return;
       }
       this.favorite = !this.favorite;
+      saveToLocal(this.seller.id, 'favorite', this.favorite);
     },
     _initPicScroll() {
       if (this.seller.pics) {
