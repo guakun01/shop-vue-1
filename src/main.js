@@ -31,5 +31,5 @@ router.map({
 
 router.start(app, '#app');
 
-router.go('/ratings');
+router.go('/seller');
 
